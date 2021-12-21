@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.css';
-import ScrollBar from '../../components/scrollBar/scrollBar';
+import ScrollBar from '../../src/components/scrollBar/scrollBar';
 
 export default () => (
   <div className={styles.normal}>
