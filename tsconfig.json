@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "moduleResolution": "node",
     "jsx": "preserve",
     "allowJs": true,
@@ -10,7 +10,11 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "declaration": true
+    "declaration": true,
+    "module": "commonjs",
+    "sourceMap": true,
+    "lib": ["es2015", "dom"],
+    "outDir": "lib"
   },
   "exclude": [
     "node_modules",
