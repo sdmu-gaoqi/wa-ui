@@ -1,1 +1,2 @@
-declare module 'wa-baseui';
+declare module '*.css';
+declare module '*.less';

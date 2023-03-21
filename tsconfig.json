@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "moduleResolution": "node",
     "jsx": "preserve",
     "allowJs": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "strict": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "suppressImplicitAnyIndexErrors": false,
     "declaration": true,
-    "module": "commonjs",
-    "sourceMap": true,
+    "module": "ESNext",
     "lib": ["es2015", "dom"],
-    "outDir": "lib"
+    "outDir": "lib",
+    "typeRoots": ["./typings"]
   },
   "exclude": [
     "node_modules",
@@ -23,5 +23,7 @@
     "lib",
     "fixtures",
     "examples"
-  ]
+  ],
+  "include": ["./src", "./typings.d.ts"],
+  "target": "ESNext"
 }

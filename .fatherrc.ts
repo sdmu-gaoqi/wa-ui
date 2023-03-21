@@ -1,17 +1,29 @@
-export default [
-  {
-    target: 'node',
-    cjs: { type: 'babel', lazy: true },
-    esm: 'babel',
-    disableTypeCheck: true,
-    lessInBabelMode: true,
-    extractCSS: true,
-    extraBabelPlugins: [
-      [
-        'babel-plugin-import',
-        { libraryName: 'antd', libraryDirectory: 'es', style: true },
-        'antd',
-      ],
-    ],
+import { defineConfig } from 'father';
+
+export default defineConfig({
+  cjs: {
+    output: 'build',
+    alias: {
+      '@': '/src',
+      '@assets': '/assets',
+    },
   },
-];
+  esm: {
+    output: 'es',
+    alias: {
+      '@': '/src',
+      '@assets': '/assets',
+    },
+  },
+  // lessInBabelMode: true,
+  umd: {
+    extractCSS: false,
+  },
+  extraBabelPlugins: [
+    [
+      'babel-plugin-import',
+      { libraryName: 'antd', libraryDirectory: 'es', style: true },
+      'antd',
+    ],
+  ],
+});
