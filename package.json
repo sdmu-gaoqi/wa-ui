@@ -1,6 +1,7 @@
 {
   "name": "wa-baseui",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "description": "",
   "authors": {
     "name": "",
@@ -65,5 +66,5 @@
     "react": ">=16.12.0",
     "react-dom": ">=16.12.0"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }
