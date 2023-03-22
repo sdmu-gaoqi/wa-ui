@@ -17,6 +17,7 @@ export default defineConfig({
   },
   // lessInBabelMode: true,
   umd: {
+    entry: '/src/entry.ts',
     extractCSS: false,
   },
   extraBabelPlugins: [
