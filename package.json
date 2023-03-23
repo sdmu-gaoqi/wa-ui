@@ -1,5 +1,6 @@
 {
   "name": "wa-baseui",
+  "module": "es/entry.js",
   "main": "es/entry.js",
   "description": "",
   "authors": {
@@ -61,5 +62,5 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
