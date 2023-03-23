@@ -1,7 +1,6 @@
 {
   "name": "wa-baseui",
-  "module": "build/entry.js",
-  "main": "lib/entry.js",
+  "main": "es/entry.js",
   "description": "",
   "authors": {
     "name": "",
@@ -62,5 +61,5 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
-  "version": "0.0.1"
+  "version": "0.0.3"
 }
