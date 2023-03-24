@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
 import { cssPixel } from '../constants/constants';
 
 export const getShouldTransfer = (element: any) => {
@@ -48,7 +48,7 @@ export const handleTransfer = ({ element, type }: any) => {
 
 export const concatCss = (value: string | string[], other = ''): string => {
   if (Array.isArray(value)) {
-    const concatClass = value.map(item => `${cssPixel}${item}`).join(` `);
+    const concatClass = value?.filter(item => !isEmpty(item))?.map(item => `${cssPixel}${item}`).join(` `);
     return `${concatClass} ${other}`;
   }
   return `${cssPixel}${value} ${other}`;

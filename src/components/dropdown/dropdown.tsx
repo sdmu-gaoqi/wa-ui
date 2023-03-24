@@ -6,7 +6,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useDebounce } from 'react-use';
 import { concatCss, getElementPosition } from '../../utils/utils';
 import Show from '../show/show';
 import {
@@ -14,9 +13,11 @@ import {
   StyledDropDownLine,
   StyledDropDownMask,
   StyledDropDownWrapper,
+  StyledMenu,
 } from './dropdown.ui';
 import { ClassConfig } from '../../../types';
 import { useUpdateEffect } from 'react-use';
+import { Triangle } from '../../css/global.style';
 
 export interface MenuItem {
   title: React.ReactNode;
@@ -29,14 +30,19 @@ export interface Dropdown {
   element?: React.ReactNode;
   line: React.ReactNode;
   classConfig?: ClassConfig;
-  closeOnMaskClick: boolean;
-  onVisibleChange: (open: boolean) => void;
+  closeOnMaskClick?: boolean;
+  onVisibleChange?: (open: boolean) => void;
   menu?: MenuItem[];
   defaultKey?: string | number;
+  placement?: 'top' | 'bottom';
+  onChange?: (item: MenuItem) => void;
+  showLine?: boolean;
+  icon?: false | React.ReactNode;
 }
 
 export interface DropdownRef {
   changeOpen: () => void;
+  changeActive: (key: string | number) => void;
 }
 
 const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
@@ -47,40 +53,65 @@ const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
     element,
     line,
     classConfig = { line: '', wrapper: '', mask: '', content: '' },
-    closeOnMaskClick = false,
+    closeOnMaskClick = true,
     onVisibleChange,
     menu,
     defaultKey,
+    placement = 'bottom',
+    onChange,
+    showLine = true,
+    icon = <Triangle />
   } = props;
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState(defaultKey);
+  const dataRef = useRef({ overflow: '' }).current
 
   const maskRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
 
-  const [, changeOpen] = useDebounce(() => {
+  const changeOpen = () => {
     setOpen(!open);
-  }, 300);
+  }
 
   const clickItem = item => {
+    if(!item.key) {
+      return
+    }
     setActiveKey(item.key);
+    onChange && onChange(item)
   };
+
+  const changeActive = (key) => {
+    setActiveKey(key)
+  }
 
   useImperativeHandle(ref, () => {
     return {
       changeOpen,
+      changeActive
     };
   });
 
   useLayoutEffect(() => {
-    if (open) {
+    if (open && lineRef?.current) {
       // 计算高度 设置背景
       const top = getElementPosition(lineRef?.current).top;
-      const clientTop = lineRef?.current?.clientHeight as number;
+      const clientTop = showLine ? lineRef?.current?.clientHeight as number : 0;
       const maskTop = top + clientTop;
       if (maskRef.current) {
-        maskRef.current.style.borderTop = `${maskTop}px solid transparent`;
+        const toPlacement = {
+          top: 'bottom',
+          bottom: 'top'
+        }[placement]
+        maskRef.current.style[toPlacement] = `${maskTop}px`
       }
+      if(open) {
+        dataRef.overflow = document.body.style.overflow || 'unset'
+        document.body.style.overflow = 'hidden'
+      }
+    }
+    else if(!open) {
+      document.body.style.overflow = dataRef.overflow
     }
   }, [open]);
 
@@ -98,11 +129,12 @@ const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
         ref={lineRef}
       >
         {line}
+        <div className={concatCss(['dropdown-card-icon'])}>{icon}</div>
       </StyledDropDownLine>
       <div>
         <Show show={open}>
           <StyledDropDownMask
-            className={concatCss('dropdown-wrapper', classConfig.mask)}
+            className={concatCss('dropdown-mask', classConfig.mask)}
             onClick={() => {
               if (closeOnMaskClick) {
                 setOpen(false);
@@ -120,13 +152,14 @@ const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
               >
                 <Show show={element && !menu}>{element}</Show>
                 <Show show={menu}>
+                  <StyledMenu>
                   {menu?.map((item: MenuItem) => {
                     return (
                       <div
                         onClick={() => clickItem(item)}
                         className={concatCss([
                           'dropdown-menu-item',
-                          activeKey === item?.key
+                          activeKey === item?.key && item.key
                             ? 'dropdown-menu-activeItem'
                             : '',
                         ])}
@@ -153,7 +186,7 @@ const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
                         <Show show={item.suffix}>
                           <div
                             className={concatCss(
-                              'dropdown-menu-item-content-suffix',
+                              'dropdown-menu-item-suffix',
                             )}
                           >
                             {item.suffix}
@@ -162,6 +195,7 @@ const Dropdown: ForwardRefRenderFunction<DropdownRef, Dropdown> = (
                       </div>
                     );
                   })}
+                  </StyledMenu>
                 </Show>
               </StyledDropDownContent>
             </StyledDropDownWrapper>

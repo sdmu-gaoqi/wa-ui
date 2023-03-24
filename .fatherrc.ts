@@ -2,18 +2,10 @@ import { defineConfig } from 'father';
 
 export default defineConfig({
   cjs: {
-    output: 'build',
-    alias: {
-      '@': '/src',
-      '@assets': '/assets',
-    },
+    output: 'lib',
   },
   esm: {
     output: 'es',
-    alias: {
-      '@': '/src',
-      '@assets': '/assets',
-    },
   },
   // lessInBabelMode: true,
   umd: {
