@@ -26,20 +26,20 @@ const customXML: any = {
     }
     for (const attr in xhr) {
       if (attr === 'onreadystatechange') {
-        xhr.onreadystatechange = function (...args: any) {
+        xhr.onreadystatechange = (...args: any) => {
           if (this.readyState === 4) {
             modifyResponse()
           }
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions, prefer-spread
-          // this.onreadystatechange && this.onreadystatechange.apply(this, args)
+          this.onreadystatechange && this.onreadystatechange.apply(this, args)
         }
         this.onreadystatechange = null
         continue
       } else if (attr === 'onload') {
-        xhr.onload = function (...args: any) {
+        xhr.onload = (...args: any) => {
           modifyResponse()
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions, prefer-spread
-          // this.onload && this.onload.apply(this, args)
+          this.onload && this.onload.apply(this, args)
         }
         continue
       }
