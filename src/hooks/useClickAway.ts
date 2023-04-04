@@ -18,4 +18,4 @@ const useClickAway = (todo: () => void, deeps: Array<Element | React.MutableRefO
     })
 }
 
-export default useAway
+export default useClickAway
