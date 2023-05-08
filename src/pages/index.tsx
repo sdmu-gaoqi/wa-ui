@@ -3,13 +3,16 @@ import useCountDown from '../hooks/useCountDown'
 import { useCss } from '../hooks'
 import { useDraw, useClickAway } from '../hooks'
 import useDropDown from '../hooks/useDropDown'
+import useSafeState from '../hooks/useSafeState'
 
 const index = () => {
-  const [containerRef, isOpen, open, close] = useDropDown()
+  const [state, setState, safeState] = useSafeState({ age: 0 })
   return (
-    <div ref={containerRef}>
-      <div onClick={open}>按钮</div>
-      { isOpen && <>展示</> }
+    <div onClick={() => {
+      setState({ ...state, age: state.age + 1 })
+      console.log(safeState, state)
+    }}>
+      添加
     </div>
   )
 }
