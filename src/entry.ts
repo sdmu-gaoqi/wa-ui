@@ -11,7 +11,10 @@ import {
     useCss,
     useRefState,
     useRegExp,
-    useScroll
+    useScroll,
+    useDraw,
+    useDropdown,
+    useUpload
 } from './hooks';
 
-export { ScrollBar, Show, Dropdown, useClickAway, useCountDown, useCss, useRefState, useRegExp, useScroll };
+export { ScrollBar, Show, Dropdown, useClickAway, useCountDown, useCss, useRefState, useRegExp, useScroll, useDraw, useDropdown, useUpload };
