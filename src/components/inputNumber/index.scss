@@ -1,0 +1,75 @@
+$activeColor: rgba(187, 187, 187, 0.5);
+$borderColor: #bbb;
+$border: 1dx solid $borderColor;
+
+.input {
+  background: rgba(54, 66, 116, 0.2);
+  border-radius: 10dx;
+  box-sizing: border-box;
+  font-size: 21dx;
+  color: #898dab;
+  display: flex;
+  align-items: center;
+  height: 53dx;
+  padding: 0 20dx;
+  border-top: 2dx solid transparent;
+
+  &::placeholder {
+    font-size: 21dx;
+    font-weight: 400;
+    color: #898dab;
+  }
+}
+
+.keyboard {
+  display: flex;
+  .keyboard-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    background-color: #eee;
+    .keyboard-number {
+      width: calc(100% / 3);
+      text-align: center;
+      background-color: #fff;
+      height: 120dx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: $border;
+      border-right: $border;
+      font-size: 30dx;
+      &:last-child {
+        width: calc(100% - 150dx);
+        margin: 0 auto;
+        &:last-child {
+          border-left: $border;
+        }
+      }
+    }
+  }
+  .keyboard-btns {
+    width: 160dx;
+    div {
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: $border;
+      svg {
+        width: 60dx;
+        path {
+          fill: #000;
+        }
+      }
+    }
+  }
+}
+
+.keyboard-code {
+  &:active {
+    background-color: $activeColor !important;
+  }
+}

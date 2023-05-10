@@ -14,7 +14,7 @@ const useDropDown = () => {
 
   React.useEffect(() => {
     const handleGlobalMouseDown = ({ target }) => {
-      const isContains = ref.current.contains(target)
+      const isContains = (ref.current as unknown as { contains: (target: any) => boolean }).contains(target)
       // const isTarget = ref.current === target
       if (!ref.current || isContains) {
         return;
