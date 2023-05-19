@@ -1,28 +1,60 @@
 $activeColor: rgba(187, 187, 187, 0.5);
 $borderColor: #bbb;
-$border: 1dx solid $borderColor;
+$border: 1px solid $borderColor;
 
-.input {
+.wa-input-number {
+  height: 40px;
+  user-select: none;
   background: rgba(54, 66, 116, 0.2);
-  border-radius: 10dx;
+  border-radius: 10px;
   box-sizing: border-box;
-  font-size: 21dx;
-  color: #898dab;
+  font-size: 21px;
+  color: #111;
   display: flex;
   align-items: center;
-  height: 53dx;
-  padding: 0 20dx;
-  border-top: 2dx solid transparent;
+  padding: 0 20px;
+  border-top: 2px solid transparent;
+  padding: 0 16px;
+  cursor: text;
+  display: flex;
+
+  .wa-input-number-cursor{
+    position: absolute;
+    right: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 1px;
+    background-color: #111;
+    display: inline-block;
+    animation-name: ActiveCursor;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
 
   &::placeholder {
-    font-size: 21dx;
+    font-size: 21px;
     font-weight: 400;
     color: #898dab;
   }
+  .wa-input-number-value-item{
+    position: relative;
+  }
 }
 
-.keyboard {
+.wa-input-number-placeholder{
+  color: #878A99;
+  position: relative;
+  .wa-input-number-cursor{
+    left: 0;
+    right: unset;
+  }
+}
+
+.wa-keyboard {
   display: flex;
+  width: 100vw;
+  user-select: none;
   .keyboard-left {
     display: flex;
     flex-wrap: wrap;
@@ -30,28 +62,39 @@ $border: 1dx solid $borderColor;
     justify-content: space-between;
     flex: 1;
     background-color: #eee;
+    border-bottom: $border;
     .keyboard-number {
       width: calc(100% / 3);
       text-align: center;
       background-color: #fff;
-      height: 120dx;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-bottom: $border;
       border-right: $border;
-      font-size: 30dx;
-      &:last-child {
-        width: calc(100% - 150dx);
-        margin: 0 auto;
-        &:last-child {
-          border-left: $border;
-        }
-      }
+      font-size: 30px;
+      box-sizing: border-box;
+    }
+    .keyboard-0{
+      width: calc(100% - 150px);
+      margin: 0 auto;
+      border-bottom: none;
+    }
+    .keyboard-decimal{
+      width: 100px;
+      background-color: #fff;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: $border;
+      border-top: none;
+      border-bottom: none;
     }
   }
   .keyboard-btns {
-    width: 160dx;
+    width: 160px;
     div {
       height: 50%;
       display: flex;
@@ -59,11 +102,19 @@ $border: 1dx solid $borderColor;
       justify-content: center;
       border-bottom: $border;
       svg {
-        width: 60dx;
+        width: 60px;
         path {
           fill: #000;
         }
       }
+    }
+    .keyboard-delete-code{
+      height: 239px;
+    }
+  }
+  .keyboard-delete-code{
+    img{
+      width: 20px;
     }
   }
 }
@@ -71,5 +122,20 @@ $border: 1dx solid $borderColor;
 .keyboard-code {
   &:active {
     background-color: $activeColor !important;
+  }
+}
+
+@keyframes ActiveCursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  51% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 1;
   }
 }

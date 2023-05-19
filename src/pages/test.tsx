@@ -1,12 +1,19 @@
 import React from 'react'
-import { useSubPub } from '../hooks'
+import { useDropdown, useSubPub } from '../hooks'
+import InputNumber from '../components/inputNumber'
 
 const Test = () => {
     const { onPub } = useSubPub()
+    const [ref, containerRef, isOpen] = useDropdown()
   return (
-    <div onClick={() => {
+    <>
+    <div ref={ref} onClick={() => {
         onPub('name', Math.random().toString(16))
     }}>test</div>
+    <InputNumber decimal onOk={(v) => {
+      console.log(v)
+    }} />
+    </>
   )
 }
 

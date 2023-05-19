@@ -23,8 +23,8 @@ class globalState {
       })
     }
   }
-  offGlobalStateChange = () => {
-
+  onOff = (key) => {
+    delete this.data?.[key]
   }
 }
 
