@@ -1,6 +1,7 @@
 $activeColor: rgba(187, 187, 187, 0.5);
 $borderColor: #bbb;
 $border: 1px solid $borderColor;
+$bg: #635f5f;
 
 .wa-input-number {
   height: 40px;
@@ -63,6 +64,7 @@ $border: 1px solid $borderColor;
   position: fixed;
   left: 0;
   bottom: 0;
+  border-top: 5px solid #111;
   .keyboard-left {
     display: flex;
     flex-wrap: wrap;
@@ -103,14 +105,12 @@ $border: 1px solid $borderColor;
       align-items: center;
       justify-content: center;
       border-bottom: none;
+      background: $bg;
+      border-right: none;
+      color: #fff;
       &:last-child {
         border-top: $border;
-      }
-      svg {
-        width: 60px;
-        path {
-          fill: #000;
-        }
+        border-color: #fff;
       }
     }
   }
@@ -125,7 +125,7 @@ $border: 1px solid $borderColor;
   border-right: $border;
   border-bottom: $border;
   &:active {
-    background-color: $activeColor !important;
+    opacity: .6;
   }
 }
 
