@@ -39,6 +39,9 @@ $border: 1px solid $borderColor;
   }
   .wa-input-number-value-item{
     position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
   }
 }
 

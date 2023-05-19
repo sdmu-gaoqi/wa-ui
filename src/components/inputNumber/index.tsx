@@ -56,7 +56,12 @@ const InputNumber = (props: InPutNumberProps) => {
               }
             }}>{item}</div>
           ))}
-          { decimal && <div className={`keyboard-code keyboard-decimal`}>.</div> }
+          { decimal && <div className={`keyboard-code keyboard-decimal`} onClick={(e) => {
+            e.stopPropagation()
+            if(onClick) {
+              onClick('.')
+            }
+          }}>.</div> }
         </div>
         <div className={'keyboard-btns'}>
           <div className={'keyboard-code keyboard-delete-code'} onClick={(e) => {
@@ -109,6 +114,9 @@ const InputNumber = (props: InPutNumberProps) => {
         </div>
       </div>
       {visible && ReactDom.createPortal(<KeyCode hidden={false} onClick={(v) => {
+        if(v === '.' && value.includes('.')) {
+          return
+        }
         if (isEmpty(value)) {
           setValue(v)
           changeActiveCursor(0)
