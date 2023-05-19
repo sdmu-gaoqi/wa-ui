@@ -58,6 +58,11 @@ $border: 1px solid $borderColor;
   display: flex;
   width: 100vw;
   user-select: none;
+  border: $border;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   .keyboard-left {
     display: flex;
     flex-wrap: wrap;
@@ -65,54 +70,48 @@ $border: 1px solid $borderColor;
     justify-content: space-between;
     flex: 1;
     background-color: #eee;
-    border-bottom: $border;
     .keyboard-number {
       width: calc(100% / 3);
       text-align: center;
       background-color: #fff;
-      height: 120px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: $border;
-      border-right: $border;
       font-size: 30px;
       box-sizing: border-box;
     }
     .keyboard-0{
-      width: calc(100% - 150px);
-      margin: 0 auto;
+      flex: 2;
       border-bottom: none;
     }
     .keyboard-decimal{
-      width: 100px;
+      flex: 1;
       background-color: #fff;
-      height: 120px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: $border;
-      border-top: none;
       border-bottom: none;
     }
   }
   .keyboard-btns {
-    width: 160px;
+    width: 120px;
     div {
-      height: 50%;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: $border;
+      border-bottom: none;
+      &:last-child {
+        border-top: $border;
+      }
       svg {
         width: 60px;
         path {
           fill: #000;
         }
       }
-    }
-    .keyboard-delete-code{
-      height: 239px;
     }
   }
   .keyboard-delete-code{
@@ -123,6 +122,8 @@ $border: 1px solid $borderColor;
 }
 
 .keyboard-code {
+  border-right: $border;
+  border-bottom: $border;
   &:active {
     background-color: $activeColor !important;
   }

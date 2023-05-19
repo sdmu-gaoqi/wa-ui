@@ -10,7 +10,7 @@ const Test = () => {
     <div ref={ref} onClick={() => {
         onPub('name', Math.random().toString(16))
     }}>test</div>
-    <InputNumber decimal onOk={(v) => {
+    <InputNumber onOk={(v) => {
       console.log(v)
     }} />
     </>
