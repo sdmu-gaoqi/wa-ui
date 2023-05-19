@@ -1,35 +1,43 @@
-import React from 'react'
+import useClickOutside from './useClickOutside'
+import useRefState from './useRefState'
+import { useEffect, useRef, useState } from 'react'
 
-const useDropDown = () => {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const ref = React.useRef(null)
+type ReturnType = [React.RefObject<HTMLDivElement>, React.RefObject<HTMLDivElement>, boolean, () => void, () => void]
 
+export default function useDropdown(): ReturnType {
+  const ref = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isOpen, setIsOpen, openRef] = useRefState(false)
+  const [outTarget, setOutTarget] = useState([contentRef.current, ref.current])
+
+  const open = () => {
+    setIsOpen(!openRef.current)
+  }
   const close = () => {
     setIsOpen(false)
   }
-
-  const open = () => {
-    setIsOpen(true)
-  }
-
-  React.useEffect(() => {
-    const handleGlobalMouseDown = ({ target }) => {
-      const isContains = (ref.current as unknown as { contains: (target: any) => boolean }).contains(target)
-      // const isTarget = ref.current === target
-      if (!ref.current || isContains) {
-        return;
-      }
-      close()
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.addEventListener(
+        'click',
+        (e: Event) => {
+          const target = e?.target as Node
+          if (!contentRef.current?.contains(target)) {
+            open()
+          }
+        },
+        true,
+      )
     }
+  }, [])
 
-    document.addEventListener('click', handleGlobalMouseDown);
+  useEffect(() => {
+    setOutTarget([contentRef.current, ref.current])
+  }, [isOpen])
 
-    return () => {
-      document.removeEventListener('click', handleGlobalMouseDown);
-    };
-  }, [close]);
+  const notCloseRefs = outTarget?.filter((item) => !!item)
 
-  return [ref, isOpen, open, close]
+  useClickOutside(close, notCloseRefs)
+
+  return [ref, contentRef, isOpen, open, close]
 }
-
-export default useDropDown
